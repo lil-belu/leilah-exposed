@@ -3,243 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>♡ LEILAH ♡ • FULL EXPOSURE LOG</title>
+    <title>♡ LEILAH ♡ • EXPOSURE LOG</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;700;900&display=swap');
 
         :root {
             --accent: #ff0055;
-            --glass: rgba(10, 10, 10, 0.9);
+            --glass-bg: rgba(10, 10, 10, 0.95);
             --border: rgba(255, 255, 255, 0.1);
         }
 
+        /* Basic Reset & Loading Optimization */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        body { 
-            background: #000; 
-            color: #fff; 
+        html, body {
+            background: #000;
+            color: #fff;
             font-family: 'Inter', sans-serif;
-            line-height: 1.6;
+            scroll-behavior: smooth;
+            min-height: 100vh;
         }
 
-        /* --- FLOATING HEADER --- */
-        header {
+        /* --- FIXED NAVIGATION --- */
+        nav {
             position: fixed;
             top: 0;
             width: 100%;
-            z-index: 100;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
+            z-index: 1000;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
             border-bottom: 1px solid var(--border);
-            padding: 20px 5%;
+            padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .brand {
+        .logo {
             font-family: 'Archivo Black', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            text-transform: uppercase;
             letter-spacing: -1px;
-        }
-
-        .brand span { color: var(--accent); }
-
-        .top-meta {
-            font-size: 0.8rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #888;
-        }
-
-        /* --- LARGE CINEMATIC GALLERY --- */
-        .exposure-feed {
-            padding: 120px 0 100px 0;
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-
-        .feed-item {
-            width: 100%;
-            margin-bottom: 80px;
-            padding: 0 5%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .image-container {
-            width: 100%;
-            background: #050505;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-            transition: transform 0.4s ease;
-        }
-
-        .image-container:hover {
-            transform: scale(1.01);
-            border-color: var(--accent);
-        }
-
-        .image-container img {
-            max-width: 100%;
-            height: auto;
-            max-height: 90vh;
-            display: block;
-            object-fit: contain; /* Total visibility, no cropping */
-        }
-
-        .img-caption {
-            align-self: flex-start;
-            margin-top: 20px;
-            padding-left: 10px;
-            border-left: 3px solid var(--accent);
-        }
-
-        .img-name {
-            font-family: 'Archivo Black', sans-serif;
-            text-transform: uppercase;
-            font-size: 1.2rem;
             color: #fff;
         }
 
-        /* --- SUBJECT DATA SECTION --- */
-        .details-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 0 5% 100px 5%;
-            max-width: 1600px;
+        .logo span { color: var(--accent); }
+
+        .meta-tag {
+            font-size: 0.75rem;
+            font-weight: 900;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* --- MAIN FEED (LARGE VISUALS) --- */
+        main {
+            padding-top: 100px;
+            max-width: 1200px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
         }
 
-        .data-card {
-            background: var(--glass);
+        .media-block {
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .frame {
+            width: 100%;
+            background: #080808;
             border: 1px solid var(--border);
-            padding: 30px;
-            border-radius: 15px;
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
         }
 
-        .label {
+        .frame img {
+            width: 100%;
+            height: auto;
+            max-height: 85vh;
+            display: block;
+            object-fit: contain; /* Prevents cropping */
+        }
+
+        .caption {
+            margin-top: 15px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            color: #888;
+            letter-spacing: 1px;
+        }
+
+        /* --- SUBJECT DATA (CONSOLIDATED) --- */
+        .data-section {
+            padding: 60px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            padding: 25px;
+            border-radius: 18px;
+            transition: 0.3s;
+        }
+
+        .card:hover { border-color: var(--accent); }
+
+        .card-label {
+            display: block;
             color: var(--accent);
             font-weight: 900;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 15px;
-            display: block;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
         }
 
-        /* --- FOOTER MARQUEE --- */
-        .marquee-footer {
+        .card-val { font-size: 1rem; line-height: 1.5; color: #eee; }
+
+        /* --- STICKY FOOTER MARQUEE --- */
+        .bottom-bar {
             position: fixed;
             bottom: 0;
             width: 100%;
             background: var(--accent);
             color: #fff;
-            padding: 12px 0;
+            padding: 10px 0;
             font-weight: 900;
-            z-index: 100;
+            z-index: 1000;
             overflow: hidden;
             white-space: nowrap;
         }
 
-        .marquee-content {
+        .marquee-txt {
             display: inline-block;
-            animation: scroll 25s linear infinite;
+            animation: marquee-scroll 20s linear infinite;
         }
 
-        @keyframes scroll {
+        @keyframes marquee-scroll {
             from { transform: translateX(100%); }
             to { transform: translateX(-100%); }
+        }
+
+        /* Loading Fix for Mobile */
+        @media (max-width: 768px) {
+            .logo { font-size: 1.4rem; }
+            main { gap: 40px; }
+            .frame { border-radius: 12px; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="brand">LEILAH</span></div>
-        <div class="top-meta">Permanent Exposure Log • WI</div>
-    </header>
+    <nav>
+        <div class="logo">LEILAH<span>.</span></div>
+        <div class="meta-tag">Permanent Asset Log</div>
+    </nav>
 
-    <main class="exposure-feed">
-        <!-- LARGE IMAGE 1 -->
-        <div class="feed-item">
-            <div class="image-container"><img src="profile.jpg" alt="Leilah Profile"></div>
-            <div class="img-caption"><div class="img-name">Primary Profile Asset</div></div>
+    <main>
+        <!-- Full Asset List -->
+        <div class="media-block">
+            <div class="frame"><img src="profile.jpg" alt="Profile"></div>
+            <div class="caption">Profile Master</div>
         </div>
 
-        <!-- LARGE IMAGE 2 -->
-        <div class="feed-item">
-            <div class="image-container"><img src="selfie.jpg" alt="Leilah Selfie"></div>
-            <div class="img-caption"><div class="img-name">Self-Portait Log</div></div>
+        <div class="media-block">
+            <div class="frame"><img src="selfie.jpg" alt="Selfie"></div>
+            <div class="caption">Selfie Submission</div>
         </div>
 
-        <!-- LARGE IMAGE 3 -->
-        <div class="feed-item">
-            <div class="image-container"><img src="mirror.jpg" alt="Mirror Shot"></div>
-            <div class="img-caption"><div class="img-name">Mirror Exposure</div></div>
+        <div class="media-block">
+            <div class="frame"><img src="mirror.jpg" alt="Mirror"></div>
+            <div class="caption">Mirror Reflection</div>
         </div>
 
-        <!-- LARGE IMAGE 4 -->
-        <div class="feed-item">
-            <div class="image-container"><img src="bendover.jpg" alt="Bendover View"></div>
-            <div class="img-caption"><div class="img-name">Position Submission</div></div>
+        <div class="media-block">
+            <div class="frame"><img src="bendover.jpg" alt="Bendover"></div>
+            <div class="caption">Submission View</div>
         </div>
 
-        <!-- LARGE IMAGE 5 -->
-        <div class="feed-item">
-            <div class="image-container"><img src="panty.jpg" alt="Panty View"></div>
-            <div class="img-caption"><div class="img-name">Mandatory Lingerie</div></div>
+        <div class="media-block">
+            <div class="frame"><img src="panty.jpg" alt="Panty"></div>
+            <div class="caption">Wardrobe Log</div>
         </div>
 
-        <!-- LARGE IMAGE 6 -->
-        <div class="feed-item">
-            <div class="image-container"><img src="chastity.jpg" alt="Chastity Log"></div>
-            <div class="img-caption"><div class="img-name">Security Lock Status</div></div>
+        <div class="media-block">
+            <div class="frame"><img src="chastity.jpg" alt="Chastity"></div>
+            <div class="caption">Security Check</div>
         </div>
 
-        <!-- LARGE IMAGE 7 -->
-        <div class="feed-item">
-            <div class="image-container"><img src="ass.jpg" alt="Ass View"></div>
-            <div class="img-caption"><div class="img-name">Asset Rear View</div></div>
+        <div class="media-block">
+            <div class="frame"><img src="ass.jpg" alt="Ass"></div>
+            <div class="caption">Asset Rear</div>
         </div>
 
-        <!-- LARGE IMAGE 8 -->
-        <div class="feed-item">
-            <div class="image-container"><img src="ass covered.jpg" alt="Ass Covered View"></div>
-            <div class="img-caption"><div class="img-name">Wardrobe Check</div></div>
+        <div class="media-block">
+            <div class="frame"><img src="ass covered.jpg" alt="Ass Covered"></div>
+            <div class="caption">Clothing Detail</div>
         </div>
+
+        <!-- Subject Data Cards -->
+        <section class="data-section">
+            <div class="card">
+                <span class="card-label">Identity</span>
+                <p class="card-val">25 Y/O • 5’9”<br>Kink: Exposure</p>
+            </div>
+            <div class="card">
+                <span class="card-label">Base Location</span>
+                <p class="card-val">Spring Green Motel, E5296B US-14, Spring Green, WI 53588</p>
+            </div>
+            <div class="card">
+                <span class="card-label">Inventory</span>
+                <p class="card-val">2 Dildos, 2 Cages, 1 Plug<br>Wardrobe: Skirts, Heels, Bras</p>
+            </div>
+            <div class="card">
+                <span class="card-label">Connect</span>
+                <p class="card-val">Kik: leiolv25<br>Discord: leilah0886<br>Reddit: leiolv23</p>
+            </div>
+        </section>
+        
+        <div style="height: 100px;"></div> <!-- Spacer for footer -->
     </main>
 
-    <!-- DATA SUMMARY -->
-    <section class="details-grid">
-        <div class="data-card">
-            <span class="label">Location</span>
-            <p>Spring Green Motel, E5296B US-14, Spring Green, WI 53588</p>
-        </div>
-        <div class="data-card">
-            <span class="label">Connectivity</span>
-            <p>Kik: leiolv25<br>Discord: leilah0886<br>Reddit: leiolv23</p>
-        </div>
-        <div class="data-card">
-            <span class="label">Specs</span>
-            <p>Age: 25 • Height: 5’9” • Kinks: Exposure</p>
-        </div>
-        <div class="data-card">
-            <span class="label">Possessions</span>
-            <p>Toys: 2 Dildos, 2 Cages, 1 Plug<br>Wardrobe: Full Sissy Attire</p>
-        </div>
-    </section>
-
-    <div class="marquee-footer">
-        <div class="marquee-content">
-            ● SUBJECT LEILAH PERMANENTLY EXPOSED ● LOCATED AT SPRING GREEN MOTEL ● NO PRIVACY RIGHTS REMAIN ● CONTACT KIK: LEIOLV25 ● 
+    <div class="bottom-bar">
+        <div class="marquee-txt">
+            SUBJECT LEILAH PERMANENTLY EXPOSED ● LOCATION: SPRING GREEN MOTEL ● CONTACT KIK: LEIOLV25 ● NO PRIVACY PROTOCOLS REMAIN ● 
         </div>
     </div>
 
