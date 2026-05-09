@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>♡ LEILAH ♡ • Exposed Sissy Princess</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+
+        :root {
+            --accent: #ff3399;
+            --bg-dark: #1a0011;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-heavy: rgba(0, 0, 0, 0.6);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0f000a;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Modern Container */
+        .main-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #1a0011 0%, #000000 100%);
+        }
+
+        /* Large Hero Image */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 95vh;
+            background: #000;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Ensures 1st image is never cropped */
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .hero-title-box {
+            position: relative;
+            z-index: 10;
+            margin-left: 40px;
+            margin-bottom: 60px;
+            padding: 30px 50px;
+            background: var(--glass-heavy);
+            backdrop-filter: blur(15px);
+            border-left: 8px solid var(--accent);
+            border-radius: 0 20px 20px 0;
+            max-width: 600px;
+            animation: slideIn 1s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            margin: 0;
+            letter-spacing: 2px;
+            color: #fff;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: var(--accent);
+            font-weight: 800;
+        }
+
+        /* Information Grid */
+        .info-strip {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            padding: 80px 40px;
+            background: rgba(255, 51, 153, 0.03);
+        }
+
+        .stats-card {
+            background: var(--glass);
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stats-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 10px;
+        }
+
+        .stats-label { color: var(--accent); font-weight: 800; font-size: 0.8rem; }
+        .stats-value { font-size: 1.5rem; display: block; }
+
+        /* No-Crop Gallery */
+        .gallery-section {
+            padding: 40px;
+        }
+
+        .section-header {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .img-container {
+            background: #0a0a0a; /* Placeholder for transparent parts of uncropped images */
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .img-container:hover {
+            transform: scale(1.02);
+            border-color: var(--accent);
+        }
+
+        .masonry-grid img {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain; /* Ensures NO cropping on any image */
+            display: block;
+        }
+
+        /* Buttons & Interactions */
+        .btn-copy {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Montserrat';
+            font-weight: 600;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+
+        .btn-copy:hover {
+            background: var(--accent);
+            box-shadow: 0 0 20px rgba(255, 51, 153, 0.5);
+        }
+
+        .exposure-box {
+            background: linear-gradient(45deg, #4a0033, #000000);
+            padding: 60px;
+            text-align: center;
+            border-top: 4px solid var(--accent);
+        }
+
+        .verification-zone {
+            height: 300px;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            margin: 40px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        @media (max-width: 768px) {
+            .info-strip { grid-template-columns: 1fr; }
+            h1 { font-size: 2.5rem; }
+            .hero-title-box { margin-left: 0; width: 100%; border-radius: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <!-- Hero Image (Full View, No Crop) -->
+    <section class="hero-section">
+        <img src="profile.jpg" class="hero-image" alt="Leilah Main">
+        <div class="hero-title-box">
+            <span class="hero-subtitle">Permanently Exposed</span>
+            <h1>♡ LEILAH ♡</h1>
+            <p>25 • 5’9” • LOCKED SISSY PRINCESS</p>
+        </div>
+    </section>
+
+    <!-- Content Grid -->
+    <section class="info-strip">
+        <div class="stats-card">
+            <div class="stats-item">
+                <span class="stats-label">SISSY LOCATION</span>
+                <span class="stats-value">Spring Green Motel, WI</span>
+            </div>
+            <div class="stats-item">
+                <span class="stats-label">CURRENT STATUS</span>
+                <span class="stats-value" style="color: var(--accent);">CHASTITY LOCKED</span>
+            </div>
+        </div>
+
+        <div class="stats-card" style="background: rgba(255, 255, 255, 0.05);">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <span class="stats-label">DISCORD</span><br>
+                    <code>leilah0886</code><br>
+                    <button class="btn-copy" onclick="copy('leilah0886')">COPY ID</button>
+                </div>
+                <div>
+                    <span class="stats-label">KIK</span><br>
+                    <code>leiolv25</code><br>
+                    <button class="btn-copy" onclick="copy('leiolv25')">COPY ID</button>
+                </div>
+                <div>
+                    <span class="stats-label">REDDIT</span><br>
+                    <a href="#" style="color: white; text-decoration: none;">u/leiolv23</a>
+                </div>
+                <div>
+                    <span class="stats-label">EMAIL</span><br>
+                    <a href="mailto:leiolv25@gmail.com" style="color: white; text-decoration: none;">Contact Me</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Full Aspect Gallery -->
+    <section class="gallery-section">
+        <h2 class="section-header">The Collection</h2>
+        <div class="masonry-grid">
+            <div class="img-container"><img src="selfie.jpg" alt="Selfie"></div>
+            <div class="img-container"><img src="mirror.jpg" alt="Mirror"></div>
+            <div class="img-container"><img src="bendover.jpg" alt="Pose"></div>
+            <div class="img-container"><img src="chastity.jpg" alt="Cage"></div>
+            <div class="img-container"><img src="ass.jpg" alt="Ass"></div>
+            <div class="img-container"><img src="panty.jpg" alt="Panties"></div>
+        </div>
+    </section>
+
+    <section class="exposure-box">
+        <h2 style="font-family: 'Playfair Display'; font-size: 3rem;">PUBLIC DOMAIN</h2>
+        <p style="max-width: 800px; margin: 0 auto; opacity: 0.8; line-height: 2;">
+            All media, locations, and contact points are permanent. This individual exists for public amusement and degradation. 
+            Use her, bully her, and remind her of her place. No privacy remains.
+        </p>
+    </section>
+
+    <div class="verification-zone">
+        Consent & Verification Media Drop
+    </div>
+</div>
+
+<script>
+    function copy(text) {
+        navigator.clipboard.writeText(text);
+        alert("Copied to clipboard! ♡");
+    }
+</script>
+
+</body>
+</html>
