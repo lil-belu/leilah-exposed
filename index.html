@@ -3,189 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNIT_0886 | DISPOSAL_LOG</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&family=Barlow+Condensed:wght@900&display=swap" rel="stylesheet">
+    <title>DATABASE :: ASSET_0886</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --pink: #ff007f; --red: #660000; --bg: #000; --panel: #0d0d0d; }
-        * { box-sizing: border-box; margin: 0; padding: 0; cursor: crosshair; scroll-behavior: smooth; }
+        :root { 
+            --neon-pink: #ff007f; 
+            --blood-red: #8B0000; 
+            --dark-bg: #030303; 
+            --panel-bg: #0a0a0a;
+            --text-main: #e0e0e0;
+            --border-color: #222;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            background: var(--bg);
-            color: #ccc;
+            background-color: var(--dark-bg);
+            color: var(--text-main);
             font-family: 'Inter', sans-serif;
-            line-height: 1.1;
             text-transform: uppercase;
+            overflow-x: hidden;
         }
 
-        /* 1. AUTO-PLAY VIDEO HEADER */
-        .header-video { height: 45vh; width: 100%; border-bottom: 3px solid var(--pink); position: relative; }
-        .header-video video { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.2) brightness(0.6); }
-
-        /* 2. HIGH-VISIBILITY ASSET SPECS */
-        .asset-specs {
-            background: var(--red);
-            padding: 15px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            border-bottom: 2px solid var(--pink);
+        /* --- IMMERSIVE OVERLAYS --- */
+        .scanlines {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none; z-index: 999; opacity: 0.4;
         }
-        .spec { border-left: 2px solid #fff; padding-left: 8px; }
-        .label { font-size: 0.6rem; color: #ff99cc; font-weight: 900; }
-        .val { font-size: 1rem; font-weight: 900; color: #fff; display: block; }
 
-        /* 3. DIRECT CONTACT / LOCATION GRID */
-        .action-grid { background: #1a1a1a; padding: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
-        .act-btn {
-            background: #000; color: #fff; text-decoration: none; padding: 12px 5px;
-            text-align: center; font-weight: 900; font-size: 0.75rem; border: 1px solid #333;
+        #boot-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 10000; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
         }
-        .act-btn:hover { background: var(--pink); color: #000; }
-        .primary { grid-column: span 2; background: #fff; color: #000; font-size: 1rem; border: none; }
 
-        /* 4. INVENTORY TAB WITH TOY LINKS */
-        .inventory { background: #080808; padding: 15px; border-bottom: 2px solid var(--pink); }
-        .inv-row { margin-bottom: 10px; font-size: 0.85rem; font-weight: 900; }
-        .inv-row b { color: var(--pink); font-size: 0.7rem; display: block; margin-bottom: 4px; }
-        .toy-link { color: #fff; text-decoration: underline; text-decoration-color: var(--pink); margin-right: 8px; }
-        .toy-link:hover { color: var(--pink); }
+        .boot-btn {
+            background: transparent; color: var(--neon-pink); padding: 20px 40px; 
+            font-family: 'Share Tech Mono', monospace; font-size: 1.5rem; 
+            border: 2px solid var(--neon-pink); cursor: pointer; transition: 0.3s;
+            text-shadow: 0 0 10px var(--neon-pink); box-shadow: inset 0 0 10px rgba(255,0,127,0.3);
+        }
+        .boot-btn:hover { background: var(--neon-pink); color: #000; text-shadow: none; }
 
-        .wrapper { max-width: 650px; margin: 0 auto; }
+        /* --- HEADER & INTRO --- */
+        .system-header {
+            background: var(--blood-red); padding: 10px 20px; border-bottom: 2px solid var(--neon-pink);
+            font-family: 'Share Tech Mono', monospace; font-size: 0.9rem; display: flex; justify-content: space-between;
+        }
+        .blinker { animation: blink 1s infinite; color: #fff; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        /* 5. FILTHY MEDIA FEED */
-        .feed { display: flex; flex-direction: column; gap: 25px; padding: 20px 10px; }
-        .card { background: var(--panel); border: 1px solid #222; }
-        .card img { width: 100%; display: block; border-bottom: 2px solid var(--pink); }
-        .desc { padding: 10px; }
-        .desc h3 { font-size: 0.6rem; color: var(--pink); margin-bottom: 3px; }
-        .desc p { font-size: 1rem; font-weight: 900; font-style: italic; color: #fff; }
+        .intro-container { width: 100%; background: #000; position: relative; border-bottom: 4px solid var(--neon-pink); }
+        .intro-container video { width: 100%; height: auto; max-height: 80vh; display: block; object-fit: contain; }
 
-        @media (max-width: 500px) { .asset-specs { grid-template-columns: 1fr; } }
+        /* --- DOSSIER GRID (RESTYLED) --- */
+        .dossier { max-width: 900px; margin: 20px auto; padding: 0 15px; }
+        
+        .specs-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px; margin-bottom: 20px;
+        }
+        .spec-card {
+            background: var(--panel-bg); border: 1px solid var(--border-color);
+            padding: 15px; border-left: 4px solid var(--blood-red);
+        }
+        .spec-label { font-family: 'Share Tech Mono', monospace; color: var(--neon-pink); font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 5px; }
+        .spec-value { font-weight: 900; font-size: 1.1rem; color: #fff; }
+
+        /* --- CONTACT BUTTONS --- */
+        .action-hub { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .cmd-btn {
+            background: #111; color: #aaa; text-decoration: none; padding: 15px;
+            text-align: center; font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; 
+            border: 1px solid #333; transition: 0.2s;
+        }
+        .cmd-btn:hover { background: #fff; color: #000; border-color: #fff; font-weight: bold; }
+        .cmd-primary { grid-column: span 2; background: var(--blood-red); color: #fff; border-color: var(--neon-pink); }
+        .cmd-primary:hover { background: var(--neon-pink); color: #000; }
+
+        /* --- MEDIA FEED --- */
+        .feed-header {
+            font-family: 'Share Tech Mono', monospace; color: #fff; font-size: 1.5rem; 
+            border-bottom: 2px solid #333; padding-bottom: 10px; margin: 40px 0 20px 0;
+        }
+
+        .media-grid { display: flex; flex-direction: column; gap: 40px; }
+        
+        .media-card {
+            background: var(--panel-bg); border: 1px solid var(--border-color);
+            position: relative; box-shadow: 5px 5px 0px rgba(255,0,127,0.15);
+        }
+        .media-card::before {
+            content: "REC •"; position: absolute; top: 10px; right: 10px;
+            font-family: 'Share Tech Mono', monospace; color: red; font-size: 0.8rem; z-index: 10; animation: blink 2s infinite; text-shadow: 0 0 5px red;
+        }
+        .media-card video, .media-card img { width: 100%; display: block; border-bottom: 3px solid #222; }
+        
+        .media-info { padding: 20px; }
+        .media-tag { font-family: 'Share Tech Mono', monospace; color: var(--neon-pink); font-size: 0.8rem; margin-bottom: 8px; }
+        .media-desc { font-size: 1.2rem; font-weight: 900; color: #fff; font-style: italic; line-height: 1.3; }
+
+        @media (max-width: 600px) { .action-hub { grid-template-columns: 1fr; } .cmd-primary { grid-column: span 1; } }
     </style>
 </head>
 <body>
 
-    <section class="header-video">
-        <video autoplay muted loop playsinline>
-            <source src="fuckedwithdildo.mp4" type="video/mp4">
+    <div class="scanlines"></div>
+
+    <!-- BOOT SCREEN FOR AUDIO UNLOCK -->
+    <div id="boot-screen">
+        <button class="boot-btn" onclick="initializeSystem()">[ OVERRIDE: INITIATE DISPOSAL LOG ]</button>
+    </div>
+
+    <div class="system-header">
+        <span>SYS_STATUS: <span class="blinker">ACTIVE</span></span>
+        <span>AUTH: ADMIN_OVERRIDE</span>
+    </div>
+
+    <!-- 1. FULL INTRO VIDEO -->
+    <div class="intro-container">
+        <video id="mainIntro" loop playsinline>
+            <source src="fucked with face.mp4" type="video/mp4">
         </video>
-    </section>
-
-    <div class="asset-specs">
-        <div class="spec"><span class="label">NAME</span><span class="val">LEILAH</span></div>
-        <div class="spec"><span class="label">STATS</span><span class="val">25YO / 5’9 / SISSY SLUT</span></div>
-        <div class="spec"><span class="label">LOCATION</span><span class="val">SPRING GREEN MOTEL, WI</span></div>
-        <div class="spec"><span class="label">ADDRESS</span><span class="val" style="font-size: 0.7rem;">E5296B US-14, 53588</span></div>
     </div>
 
-    <div class="action-grid">
-        <a href="https://www.google.com/maps/search/?api=1&query=Spring+Green+Motel+WI" target="_blank" class="act-btn primary">📍 NAVIGATE TO MOTEL ROOM</a>
-        <a href="https://discord.com/users/REPLACE_WITH_ID" target="_blank" class="act-btn">DISCORD: leilah0886</a>
-        <a href="https://kik.me/leiolv25" target="_blank" class="act-btn">KIK: leiolv25</a>
-        <a href="https://www.reddit.com/user/leiolv23" target="_blank" class="act-btn">REDDIT: leiolv23</a>
-        <a href="mailto:leiolv25@gmail.com" target="_blank" class="act-btn">EMAIL: leiolv25</a>
-    </div>
-
-    <div class="inventory">
-        <div class="inv-row">
-            <b>HARDWARE_INVENTORY:</b> 
-            <a href="#dildos" class="toy-link">TWO DILDOS</a>
-            <a href="#cages" class="toy-link">TWO CHASTITY CAGES</a>
-            <a href="#plug" class="toy-link">ONE BUTT PLUG</a>
+    <div class="dossier">
+        
+        <!-- 2. REFINED DOSSIER SPECS -->
+        <div class="specs-grid">
+            <div class="spec-card">
+                <div class="spec-label">ASSET_DESIGNATION</div>
+                <div class="spec-value">LEILAH</div>
+            </div>
+            <div class="spec-card">
+                <div class="spec-label">PHYSICAL_METRICS</div>
+                <div class="spec-value">25 YEARS / 5’9 HEIGHT</div>
+            </div>
+            <div class="spec-card">
+                <div class="spec-label">CURRENT_LOCATION</div>
+                <div class="spec-value">SPRING GREEN, WI</div>
+            </div>
+            <div class="spec-card">
+                <div class="spec-label">TOY_INVENTORY</div>
+                <div class="spec-value">2 DILDOS, 2 CHASTITY CAGES, 1 BUTT PLUG</div>
+            </div>
+            <div class="spec-card">
+                <div class="spec-label">GIRLY_CLOTHING</div>
+                <div class="spec-value">DRESSES, SKIRTS, HEELS, TOPS, BRAS, PANTIES</div>
+            </div>
+            <div class="spec-card">
+                <div class="spec-label">PROGRAMMED_KINKS</div>
+                <div class="spec-value">EXPOSURE, DEGRADATION, HUMILIATION</div>
+            </div>
         </div>
-        <div class="inv-row"><b>GIRLY_UNIFORM:</b> DRESSES, SKIRTS, HEELS, TOPS, BRAS, <a href="#panties" class="toy-link">PANTIES</a>.</div>
-        <div class="inv-row"><b>PROGRAMMED_KINKS:</b> EXPOSURE, DEGRADATION, HUMILIATION.</div>
+
+        <!-- 3. CONTACT HUB -->
+        <div class="action-hub">
+            <a href="https://maps.google.com/?q=Spring+Green+Motel+E5296B+US-14+Spring+Green+WI+53588" target="_blank" class="cmd-btn cmd-primary">> LOCATE: SPRING GREEN MOTEL, E5296B US-14, 53588</a>
+            <a href="mailto:leiolv25@gmail.com" class="cmd-btn">EMAIL: leiolv25@gmail.com</a>
+            <a href="https://kik.me/leiolv25" class="cmd-btn">KIK: leiolv25</a>
+            <a href="https://reddit.com/user/leiolv23" class="cmd-btn">REDDIT: leiolv23</a>
+            <a href="https://discord.com/users/leilah0886" class="cmd-btn">DISCORD: leilah0886</a>
+        </div>
+
+        <div class="feed-header">> MEDIA_LOGS_RETRIEVED</div>
+
+        <!-- 4. DYNAMIC MEDIA FEED -->
+        <div class="media-grid">
+
+            <!-- ALL VIDEOS -->
+            <div class="media-card"><video loop playsinline preload="metadata"><source src="fucked.mp4"></video><div class="media-info"><div class="media-tag">FILE_V01 // DISPOSAL</div><div class="media-desc">TOTAL DISPOSAL. PUBLIC USE HOLE AT WORK.</div></div></div>
+            <div class="media-card"><video loop playsinline preload="metadata"><source src="blowjob.mp4"></video><div class="media-info"><div class="media-tag">FILE_V02 // ORAL</div><div class="media-desc">ORAL MAINTENANCE. BORN TO CHOKE.</div></div></div>
+            <div class="media-card"><video loop playsinline preload="metadata"><source src="fucked2.mp4"></video><div class="media-info"><div class="media-tag">FILE_V03 // DISPOSAL</div><div class="media-desc">REAMED OUT AND DISCARDED. NO RIGHTS.</div></div></div>
+            <div class="media-card"><video loop playsinline preload="metadata"><source src="blowjob2.mp4"></video><div class="media-info"><div class="media-tag">FILE_V04 // ORAL</div><div class="media-desc">KEEPING THE GUESTS DRAINED.</div></div></div>
+            <div class="media-card"><video loop playsinline preload="metadata"><source src="fedfromcondom.mp4"></video><div class="media-info"><div class="media-tag">FILE_V05 // FEEDING</div><div class="media-desc">DRINKING WASTE DIRECTLY FROM THE SOURCE.</div></div></div>
+            <div class="media-card"><video loop playsinline preload="metadata"><source src="blowjob3.mp4"></video><div class="media-info"><div class="media-tag">FILE_V06 // ORAL</div><div class="media-desc">ENDLESS SISSY WHORE DUTY.</div></div></div>
+            <div class="media-card"><video loop playsinline preload="metadata"><source src="blowjob4.mp4"></video><div class="media-info"><div class="media-tag">FILE_V07 // ORAL</div><div class="media-desc">MOTEL DUMPING GROUND PREP.</div></div></div>
+            <div class="media-card"><video loop playsinline preload="metadata"><source src="vibrator on clitty.mp4"></video><div class="media-info"><div class="media-tag">FILE_V08 // STIMULATION</div><div class="media-desc">CLIT OVERLOAD. FRYING THE BRAIN.</div></div></div>
+            <div class="media-card"><video loop playsinline preload="metadata"><source src="leaking ass.mp4"></video><div class="media-info"><div class="media-tag">FILE_V09 // OUTPUT</div><div class="media-desc">LEAKING PUBLIC WASTE. PERMANENT GAPE.</div></div></div>
+            <div class="media-card"><video loop playsinline preload="metadata"><source src="playing with cum in mouth.mp4"></video><div class="media-info"><div class="media-tag">FILE_V10 // POST_USE</div><div class="media-desc">SAVORING THE DEGRADATION. WEARING THE MESS.</div></div></div>
+            <div class="media-card"><video loop playsinline preload="metadata"><source src="blowjob5.mp4"></video><div class="media-info"><div class="media-tag">FILE_V11 // ORAL</div><div class="media-desc">ORAL SLAVE AT ABSOLUTE CAPACITY.</div></div></div>
+            <div class="media-card"><video loop playsinline preload="metadata"><source src="blowjob6.mp4"></video><div class="media-info"><div class="media-tag">FILE_V12 // ORAL</div><div class="media-desc">OPEN 24/7 FOR MOTEL DISPOSAL.</div></div></div>
+            <div class="media-card"><video loop playsinline preload="metadata"><source src="fuckedwithdildo.mp4"></video><div class="media-info"><div class="media-tag">FILE_V13 // HARDWARE</div><div class="media-desc">INTERNAL GAPPING SESSIONS.</div></div></div>
+
+            <!-- ALL IMAGES -->
+            <div class="media-card"><img src="ass covered.jpg" loading="lazy"><div class="media-info"><div class="media-tag">FILE_I01 // ASSET_STATUS</div><div class="media-desc">COVERED IN PUBLIC WASTE.</div></div></div>
+            <div class="media-card"><img src="ass.jpg" loading="lazy"><div class="media-info"><div class="media-tag">FILE_I02 // ASSET_STATUS</div><div class="media-desc">SISSY ASS ON DISPLAY.</div></div></div>
+            <div class="media-card"><img src="bendover.jpg" loading="lazy"><div class="media-info"><div class="media-tag">FILE_I03 // POSTURE</div><div class="media-desc">MOTEL BEND OVER DEFAULT.</div></div></div>
+            <div class="media-card"><img src="big pink chastity.jpg" loading="lazy"><div class="media-info"><div class="media-tag">FILE_I04 // HARDWARE</div><div class="media-desc">LOCKED IN PINK PLASTIC.</div></div></div>
+            <div class="media-card"><img src="buttplug.jpg" loading="lazy"><div class="media-info"><div class="media-tag">FILE_I05 // HARDWARE</div><div class="media-desc">PLUGGED AND READY.</div></div></div>
+            <div class="media-card"><img src="bigdildo.jpg" loading="lazy"><div class="media-info"><div class="media-tag">FILE_I06 // HARDWARE</div><div class="media-desc">HEAVY GAPPING GEAR.</div></div></div>
+            <div class="media-card"><img src="smalldildo.jpg" loading="lazy"><div class="media-info"><div class="media-tag">FILE_I07 // HARDWARE</div><div class="media-desc">DAILY MAINTENANCE TOOLS.</div></div></div>
+            <div class="media-card"><img src="mirror.jpg" loading="lazy"><div class="media-info"><div class="media-tag">FILE_I08 // OBSERVATION</div><div class="media-desc">ADMIRING THE MOTEL RUIN.</div></div></div>
+            <div class="media-card"><img src="nubchastity.jpg" loading="lazy"><div class="media-info"><div class="media-tag">FILE_I09 // HARDWARE</div><div class="media-desc">TOTAL GENITAL CASTRATION.</div></div></div>
+            <div class="media-card"><img src="panty.jpg" loading="lazy"><div class="media-info"><div class="media-tag">FILE_I10 // UNIFORM</div><div class="media-desc">LACY TRASH UNIFORM.</div></div></div>
+            <div class="media-card"><img src="profile.jpg" loading="lazy"><div class="media-info"><div class="media-tag">FILE_I11 // ID_CHECK</div><div class="media-desc">TARGET IDENTIFIED: LEILAH.</div></div></div>
+            <div class="media-card"><img src="selfie.jpg" loading="lazy"><div class="media-info"><div class="media-tag">FILE_I12 // ID_CHECK</div><div class="media-desc">SISSY FACE RECOGNITION.</div></div></div>
+            <div class="media-card"><img src="showing off.jpg" loading="lazy"><div class="media-info"><div class="media-tag">FILE_I13 // EXPOSURE</div><div class="media-desc">EXHIBITIONIST TRASH.</div></div></div>
+            <div class="media-card"><img src="showoff.jpg" loading="lazy"><div class="media-info"><div class="media-tag">FILE_I14 // EXPOSURE</div><div class="media-desc">PUBLIC PROPERTY DISPLAY.</div></div></div>
+            <div class="media-card"><img src="sissy.jpg" loading="lazy"><div class="media-info"><div class="media-tag">FILE_I15 // UNIFORM</div><div class="media-desc">DRESSED UP FOR DISCARD.</div></div></div>
+            <div class="media-card"><img src="sissy2.jpg" loading="lazy"><div class="media-info"><div class="media-tag">FILE_I16 // FULL_BODY</div><div class="media-desc">5'9 OF DEGRADATION.</div></div></div>
+
+        </div>
     </div>
 
-    <div class="wrapper">
-        <div class="feed">
+    <script>
+        // 1. System Boot (Unlocks audio constraints in browsers)
+        function initializeSystem() {
+            document.getElementById('boot-screen').style.display = 'none';
             
-            <div class="card">
-                <img src="mirror.jpg">
-                <div class="desc">
-                    <h3>REFLECTIVE_FAILURE</h3>
-                    <p>5’9 OF SUBHUMAN TRASH ADMIRING THE SISSY RAGS IT WEARS IN THE MOTEL GLASS.</p>
-                </div>
-            </div>
+            // Play intro
+            const intro = document.getElementById('mainIntro');
+            intro.muted = false;
+            intro.play().catch(e => console.log("Intro play blocked:", e));
+            
+            setupSmartVideoObserver();
+        }
 
-            <!-- CHASTITY LINK TARGET -->
-            <div id="cages" class="card">
-                <img src="big pink chastity.jpg">
-                <div class="desc">
-                    <h3>PENAL_HARDWARE</h3>
-                    <p>LOCKED IN PINK PLASTIC. ONE OF TWO CAGES USED TO KEEP THIS SLUT IN TOTAL DENIAL.</p>
-                </div>
-            </div>
+        // 2. Smart Intersection Observer (Only ONE video plays at a time)
+        function setupSmartVideoObserver() {
+            const allVideos = document.querySelectorAll('video');
+            
+            // We use a strict threshold. The video must be 60% on screen.
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.6 
+            };
 
-            <div class="card">
-                <img src="nubchastity.jpg">
-                <div class="desc">
-                    <h3>DENIAL_LOG</h3>
-                    <p>THE NUB. THE OTHER CAGE DESIGNED TO KEEP THIS PATHETIC FAILURE PERMANENTLY FRUSTRATED.</p>
-                </div>
-            </div>
+            const videoObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const video = entry.target;
+                    
+                    if (entry.isIntersecting) {
+                        // Pause EVERY other video on the page first
+                        allVideos.forEach(v => {
+                            if (v !== video && !v.paused) {
+                                v.pause();
+                            }
+                        });
+                        
+                        // Unmute and play the one currently in view
+                        video.muted = false;
+                        video.play().catch(e => console.log("Auto-play restricted by browser."));
+                    } else {
+                        // Pause it when it leaves the screen
+                        video.pause();
+                    }
+                });
+            }, observerOptions);
 
-            <!-- DILDO LINK TARGET -->
-            <div id="dildos" class="card">
-                <img src="bigdildo.jpg">
-                <div class="desc">
-                    <h3>ORIFICE_EXPANSION</h3>
-                    <p>GAPPING THE SISSY CUNT WITH THE BIG DILDO. STRETCHED WIDE AND READY FOR REAL COCK.</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="smalldildo.jpg">
-                <div class="desc">
-                    <h3>INTERNAL_MAINTENANCE</h3>
-                    <p>THE SMALLER DILDO FOR DAILY USE. EVEN THIS IS ENOUGH TO MAKE THIS WHORE WHIMPER.</p>
-                </div>
-            </div>
-
-            <!-- PLUG LINK TARGET -->
-            <div id="plug" class="card">
-                <img src="buttplug.jpg">
-                <div class="desc">
-                    <h3>STORAGE_STATUS</h3>
-                    <p>PLUGGED AND READY. THIS WHORE IS PERMANENTLY MARINATING IN ITS OWN SUBMISSION.</p>
-                </div>
-            </div>
-
-            <!-- PANTY LINK TARGET -->
-            <div id="panties" class="card">
-                <img src="panty.jpg">
-                <div class="desc">
-                    <h3>UNIFORM_PIECE</h3>
-                    <p>CHEAP LACY TRASH FOR A CHEAP MOTEL WHORE. READY TO BE RIPPED OFF BY ANYONE.</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="ass.jpg">
-                <div class="desc">
-                    <h3>ASSET_EXPOSURE</h3>
-                    <p>A BARE, USELESS SISSY ASS. MARKED FOR PUBLIC RUIN AND TOTAL DEGRADATION.</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="bendover.jpg">
-                <div class="desc">
-                    <h3>SLAVE_POSTURE</h3>
-                    <p>BENT OVER AT THE SPRING GREEN MOTEL. WAITING FOR ANY STRANGER TO CLAIM IT.</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="showoff.jpg">
-                <div class="desc">
-                    <h3>FINAL_LOG_ENTRY</h3>
-                    <p>TARGET ACQUIRED. SPECS LOGGED. DISPOSE OF THIS CUM-SINK IMMEDIATELY.</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
+            // Attach observer to all videos
+            allVideos.forEach(video => {
+                videoObserver.observe(video);
+            });
+        }
+    </script>
 </body>
 </html>
