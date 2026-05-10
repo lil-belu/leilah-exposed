@@ -3,240 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>♡ LEILAH ♡ • EXPOSURE LOG</title>
+    <title>UNIT_0886 | DISPOSAL_LOG</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&family=Barlow+Condensed:wght@900&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;700;900&display=swap');
-
-        :root {
-            --accent: #ff0055;
-            --glass-bg: rgba(10, 10, 10, 0.95);
-            --border: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Basic Reset & Loading Optimization */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --pink: #ff007f; --red: #660000; --bg: #000; --panel: #0d0d0d; }
+        * { box-sizing: border-box; margin: 0; padding: 0; cursor: crosshair; scroll-behavior: smooth; }
         
-        html, body {
-            background: #000;
-            color: #fff;
+        body {
+            background: var(--bg);
+            color: #ccc;
             font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-            min-height: 100vh;
-        }
-
-        /* --- FIXED NAVIGATION --- */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            background: var(--glass-bg);
-            backdrop-filter: blur(25px);
-            border-bottom: 1px solid var(--border);
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 1.8rem;
+            line-height: 1.1;
             text-transform: uppercase;
-            letter-spacing: -1px;
-            color: #fff;
         }
 
-        .logo span { color: var(--accent); }
+        /* 1. AUTO-PLAY VIDEO HEADER */
+        .header-video { height: 45vh; width: 100%; border-bottom: 3px solid var(--pink); position: relative; }
+        .header-video video { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.2) brightness(0.6); }
 
-        .meta-tag {
-            font-size: 0.75rem;
-            font-weight: 900;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* --- MAIN FEED (LARGE VISUALS) --- */
-        main {
-            padding-top: 100px;
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 60px;
-        }
-
-        .media-block {
-            width: 100%;
-            padding: 0 20px;
-        }
-
-        .frame {
-            width: 100%;
-            background: #080808;
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-        }
-
-        .frame img {
-            width: 100%;
-            height: auto;
-            max-height: 85vh;
-            display: block;
-            object-fit: contain; /* Prevents cropping */
-        }
-
-        .caption {
-            margin-top: 15px;
-            font-weight: 700;
-            font-size: 1rem;
-            text-transform: uppercase;
-            color: #888;
-            letter-spacing: 1px;
-        }
-
-        /* --- SUBJECT DATA (CONSOLIDATED) --- */
-        .data-section {
-            padding: 60px 20px;
+        /* 2. HIGH-VISIBILITY ASSET SPECS */
+        .asset-specs {
+            background: var(--red);
+            padding: 15px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            border-bottom: 2px solid var(--pink);
         }
+        .spec { border-left: 2px solid #fff; padding-left: 8px; }
+        .label { font-size: 0.6rem; color: #ff99cc; font-weight: 900; }
+        .val { font-size: 1rem; font-weight: 900; color: #fff; display: block; }
 
-        .card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border);
-            padding: 25px;
-            border-radius: 18px;
-            transition: 0.3s;
+        /* 3. DIRECT CONTACT / LOCATION GRID */
+        .action-grid { background: #1a1a1a; padding: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+        .act-btn {
+            background: #000; color: #fff; text-decoration: none; padding: 12px 5px;
+            text-align: center; font-weight: 900; font-size: 0.75rem; border: 1px solid #333;
         }
+        .act-btn:hover { background: var(--pink); color: #000; }
+        .primary { grid-column: span 2; background: #fff; color: #000; font-size: 1rem; border: none; }
 
-        .card:hover { border-color: var(--accent); }
+        /* 4. INVENTORY TAB WITH TOY LINKS */
+        .inventory { background: #080808; padding: 15px; border-bottom: 2px solid var(--pink); }
+        .inv-row { margin-bottom: 10px; font-size: 0.85rem; font-weight: 900; }
+        .inv-row b { color: var(--pink); font-size: 0.7rem; display: block; margin-bottom: 4px; }
+        .toy-link { color: #fff; text-decoration: underline; text-decoration-color: var(--pink); margin-right: 8px; }
+        .toy-link:hover { color: var(--pink); }
 
-        .card-label {
-            display: block;
-            color: var(--accent);
-            font-weight: 900;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-            letter-spacing: 2px;
-        }
+        .wrapper { max-width: 650px; margin: 0 auto; }
 
-        .card-val { font-size: 1rem; line-height: 1.5; color: #eee; }
+        /* 5. FILTHY MEDIA FEED */
+        .feed { display: flex; flex-direction: column; gap: 25px; padding: 20px 10px; }
+        .card { background: var(--panel); border: 1px solid #222; }
+        .card img { width: 100%; display: block; border-bottom: 2px solid var(--pink); }
+        .desc { padding: 10px; }
+        .desc h3 { font-size: 0.6rem; color: var(--pink); margin-bottom: 3px; }
+        .desc p { font-size: 1rem; font-weight: 900; font-style: italic; color: #fff; }
 
-        /* --- STICKY FOOTER MARQUEE --- */
-        .bottom-bar {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background: var(--accent);
-            color: #fff;
-            padding: 10px 0;
-            font-weight: 900;
-            z-index: 1000;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-
-        .marquee-txt {
-            display: inline-block;
-            animation: marquee-scroll 20s linear infinite;
-        }
-
-        @keyframes marquee-scroll {
-            from { transform: translateX(100%); }
-            to { transform: translateX(-100%); }
-        }
-
-        /* Loading Fix for Mobile */
-        @media (max-width: 768px) {
-            .logo { font-size: 1.4rem; }
-            main { gap: 40px; }
-            .frame { border-radius: 12px; }
-        }
+        @media (max-width: 500px) { .asset-specs { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">LEILAH<span>.</span></div>
-        <div class="meta-tag">Permanent Asset Log</div>
-    </nav>
+    <section class="header-video">
+        <video autoplay muted loop playsinline>
+            <source src="fuckedwithdildo.mp4" type="video/mp4">
+        </video>
+    </section>
 
-    <main>
-        <!-- Full Asset List -->
-        <div class="media-block">
-            <div class="frame"><img src="profile.jpg" alt="Profile"></div>
-            <div class="caption">Profile Master</div>
+    <div class="asset-specs">
+        <div class="spec"><span class="label">NAME</span><span class="val">LEILAH</span></div>
+        <div class="spec"><span class="label">STATS</span><span class="val">25YO / 5’9 / SISSY SLUT</span></div>
+        <div class="spec"><span class="label">LOCATION</span><span class="val">SPRING GREEN MOTEL, WI</span></div>
+        <div class="spec"><span class="label">ADDRESS</span><span class="val" style="font-size: 0.7rem;">E5296B US-14, 53588</span></div>
+    </div>
+
+    <div class="action-grid">
+        <a href="https://www.google.com/maps/search/?api=1&query=Spring+Green+Motel+WI" target="_blank" class="act-btn primary">📍 NAVIGATE TO MOTEL ROOM</a>
+        <a href="https://discord.com/users/REPLACE_WITH_ID" target="_blank" class="act-btn">DISCORD: leilah0886</a>
+        <a href="https://kik.me/leiolv25" target="_blank" class="act-btn">KIK: leiolv25</a>
+        <a href="https://www.reddit.com/user/leiolv23" target="_blank" class="act-btn">REDDIT: leiolv23</a>
+        <a href="mailto:leiolv25@gmail.com" target="_blank" class="act-btn">EMAIL: leiolv25</a>
+    </div>
+
+    <div class="inventory">
+        <div class="inv-row">
+            <b>HARDWARE_INVENTORY:</b> 
+            <a href="#dildos" class="toy-link">TWO DILDOS</a>
+            <a href="#cages" class="toy-link">TWO CHASTITY CAGES</a>
+            <a href="#plug" class="toy-link">ONE BUTT PLUG</a>
         </div>
+        <div class="inv-row"><b>GIRLY_UNIFORM:</b> DRESSES, SKIRTS, HEELS, TOPS, BRAS, <a href="#panties" class="toy-link">PANTIES</a>.</div>
+        <div class="inv-row"><b>PROGRAMMED_KINKS:</b> EXPOSURE, DEGRADATION, HUMILIATION.</div>
+    </div>
 
-        <div class="media-block">
-            <div class="frame"><img src="selfie.jpg" alt="Selfie"></div>
-            <div class="caption">Selfie Submission</div>
-        </div>
-
-        <div class="media-block">
-            <div class="frame"><img src="mirror.jpg" alt="Mirror"></div>
-            <div class="caption">Mirror Reflection</div>
-        </div>
-
-        <div class="media-block">
-            <div class="frame"><img src="bendover.jpg" alt="Bendover"></div>
-            <div class="caption">Submission View</div>
-        </div>
-
-        <div class="media-block">
-            <div class="frame"><img src="panty.jpg" alt="Panty"></div>
-            <div class="caption">Wardrobe Log</div>
-        </div>
-
-        <div class="media-block">
-            <div class="frame"><img src="chastity.jpg" alt="Chastity"></div>
-            <div class="caption">Security Check</div>
-        </div>
-
-        <div class="media-block">
-            <div class="frame"><img src="ass.jpg" alt="Ass"></div>
-            <div class="caption">Asset Rear</div>
-        </div>
-
-        <div class="media-block">
-            <div class="frame"><img src="ass covered.jpg" alt="Ass Covered"></div>
-            <div class="caption">Clothing Detail</div>
-        </div>
-
-        <!-- Subject Data Cards -->
-        <section class="data-section">
+    <div class="wrapper">
+        <div class="feed">
+            
             <div class="card">
-                <span class="card-label">Identity</span>
-                <p class="card-val">25 Y/O • 5’9”<br>Kink: Exposure</p>
+                <img src="mirror.jpg">
+                <div class="desc">
+                    <h3>REFLECTIVE_FAILURE</h3>
+                    <p>5’9 OF SUBHUMAN TRASH ADMIRING THE SISSY RAGS IT WEARS IN THE MOTEL GLASS.</p>
+                </div>
             </div>
-            <div class="card">
-                <span class="card-label">Base Location</span>
-                <p class="card-val">Spring Green Motel, E5296B US-14, Spring Green, WI 53588</p>
-            </div>
-            <div class="card">
-                <span class="card-label">Inventory</span>
-                <p class="card-val">2 Dildos, 2 Cages, 1 Plug<br>Wardrobe: Skirts, Heels, Bras</p>
-            </div>
-            <div class="card">
-                <span class="card-label">Connect</span>
-                <p class="card-val">Kik: leiolv25<br>Discord: leilah0886<br>Reddit: leiolv23</p>
-            </div>
-        </section>
-        
-        <div style="height: 100px;"></div> <!-- Spacer for footer -->
-    </main>
 
-    <div class="bottom-bar">
-        <div class="marquee-txt">
-            SUBJECT LEILAH PERMANENTLY EXPOSED ● LOCATION: SPRING GREEN MOTEL ● CONTACT KIK: LEIOLV25 ● NO PRIVACY PROTOCOLS REMAIN ● 
+            <!-- CHASTITY LINK TARGET -->
+            <div id="cages" class="card">
+                <img src="big pink chastity.jpg">
+                <div class="desc">
+                    <h3>PENAL_HARDWARE</h3>
+                    <p>LOCKED IN PINK PLASTIC. ONE OF TWO CAGES USED TO KEEP THIS SLUT IN TOTAL DENIAL.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="nubchastity.jpg">
+                <div class="desc">
+                    <h3>DENIAL_LOG</h3>
+                    <p>THE NUB. THE OTHER CAGE DESIGNED TO KEEP THIS PATHETIC FAILURE PERMANENTLY FRUSTRATED.</p>
+                </div>
+            </div>
+
+            <!-- DILDO LINK TARGET -->
+            <div id="dildos" class="card">
+                <img src="bigdildo.jpg">
+                <div class="desc">
+                    <h3>ORIFICE_EXPANSION</h3>
+                    <p>GAPPING THE SISSY CUNT WITH THE BIG DILDO. STRETCHED WIDE AND READY FOR REAL COCK.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="smalldildo.jpg">
+                <div class="desc">
+                    <h3>INTERNAL_MAINTENANCE</h3>
+                    <p>THE SMALLER DILDO FOR DAILY USE. EVEN THIS IS ENOUGH TO MAKE THIS WHORE WHIMPER.</p>
+                </div>
+            </div>
+
+            <!-- PLUG LINK TARGET -->
+            <div id="plug" class="card">
+                <img src="buttplug.jpg">
+                <div class="desc">
+                    <h3>STORAGE_STATUS</h3>
+                    <p>PLUGGED AND READY. THIS WHORE IS PERMANENTLY MARINATING IN ITS OWN SUBMISSION.</p>
+                </div>
+            </div>
+
+            <!-- PANTY LINK TARGET -->
+            <div id="panties" class="card">
+                <img src="panty.jpg">
+                <div class="desc">
+                    <h3>UNIFORM_PIECE</h3>
+                    <p>CHEAP LACY TRASH FOR A CHEAP MOTEL WHORE. READY TO BE RIPPED OFF BY ANYONE.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="ass.jpg">
+                <div class="desc">
+                    <h3>ASSET_EXPOSURE</h3>
+                    <p>A BARE, USELESS SISSY ASS. MARKED FOR PUBLIC RUIN AND TOTAL DEGRADATION.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="bendover.jpg">
+                <div class="desc">
+                    <h3>SLAVE_POSTURE</h3>
+                    <p>BENT OVER AT THE SPRING GREEN MOTEL. WAITING FOR ANY STRANGER TO CLAIM IT.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="showoff.jpg">
+                <div class="desc">
+                    <h3>FINAL_LOG_ENTRY</h3>
+                    <p>TARGET ACQUIRED. SPECS LOGGED. DISPOSE OF THIS CUM-SINK IMMEDIATELY.</p>
+                </div>
+            </div>
+
         </div>
     </div>
 
